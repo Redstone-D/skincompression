@@ -1,6 +1,6 @@
 import json
 import uuid 
-from PIL import Image 
+# from PIL import Image 
 
 def genManifest(name): 
     out = {
@@ -48,6 +48,7 @@ def skinprop(file):
     } 
 
 def testSex(file): 
+    ''' 
     try: 
         image = Image.open(file) 
         for x in range(17, 20): 
@@ -58,7 +59,8 @@ def testSex(file):
                     return 'geometry.humanoid.custom' 
         return 'geometry.humanoid.customSlim' 
     except: 
-        return 'geometry.humanoid.customSlim'  
+    ''' 
+    return 'geometry.humanoid.customSlim'  
 
 def getText(name, proname): 
     return f"skin.{proname}.{name[:-4]}={name[:-4]} \n" 
