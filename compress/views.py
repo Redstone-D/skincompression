@@ -11,11 +11,13 @@ from . import text
 
 def index(request): 
     if request.method == "POST": 
-        form = forms.UploadAndCompressForm(request.POST, request.FILES) 
-        if form.is_valid():
+        # form = forms.UploadAndCompressForm(request.POST, request.FILES) 
+        # if form.is_valid(): 
+        if request.POST.get("name") != None: 
             # Get the uploaded files and the text input from the form
-            files = request.FILES.getlist("files")
-            name = form.cleaned_data["text"] 
+            # files = request.FILES.getlist("files") 
+            files = request.FILES.getlist("skins") 
+            name = request.POST.get("name") 
             skin = [] 
             tran = "" 
 
