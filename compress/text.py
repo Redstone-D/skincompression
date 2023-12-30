@@ -20,7 +20,7 @@ def genManifest(name):
                 "uuid": str(uuid.uuid4()),
                 "version": [
                     1,
-                    0,
+                    0, 
                     0
                 ]
             }
@@ -37,11 +37,11 @@ def getJson(li):
     })  
 
 def getLang(str, pname): 
-    return f"skinpack.{pname}:{pname}={pname}:{pname}\n{str}" 
+    return f"skinpack.{pname}={pname}\n{str}" 
 
 def skinprop(file): 
     return { 
-        "localization_name": "Cinder_64x.png", 
+        "localization_name": file.name, 
         "geometry": testSex(file),
         "texture": file.name, 
         "type": "free" 
