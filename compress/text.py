@@ -31,9 +31,11 @@ def genManifest(name):
 def getManText(name): 
     return str(json.dumps(genManifest(name)))  
 
-def getJson(li): 
+def getJson(li, pname): 
     return json.dumps({
-        "skins": li 
+        "skins": li, 
+        "serialize_name": pname,
+        "localization_name": pname 
     })  
 
 def getLang(str, pname): 

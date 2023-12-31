@@ -32,7 +32,7 @@ def index(request):
                     tran += text.getText(file.name, name) 
                 # Create a ContentFile object from the text input
                 text_file = ContentFile(text.getManText(name)) 
-                json_file = ContentFile(str(text.getJson(skin))) 
+                json_file = ContentFile(str(text.getJson(skin, name))) 
                 lang_file = ContentFile(text.getLang(tran, name)) 
                 # Add the text file to the ZIP file with Json file 
                 zip_file.writestr("manifest.json", text_file.read()) 
