@@ -20,6 +20,7 @@ def index(request):
             name = request.POST.get("name") 
             skin = [] 
             tran = "" 
+            model = request.POST["model"] 
 
             # Create a ZIP file in memory
             zip_buffer = io.BytesIO() 
@@ -27,7 +28,7 @@ def index(request):
                 # Add the uploaded files to the ZIP file
                 for file in files: 
                     zip_file.writestr(file.name, file.read()) 
-                    skin.append(text.skinprop(file)) 
+                    skin.append(text.skinprop(file, model)) 
                     tran += text.getText(file.name, name) 
                 # Create a ContentFile object from the text input
                 text_file = ContentFile(text.getManText(name)) 

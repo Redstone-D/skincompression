@@ -9,8 +9,15 @@
     <form method="POST" enctype="multipart/form-data"> 
         {% csrf_token %} 
         <!---{{ form.as_p }} --> 
-        <input type="file" name="skins" multiple />
-        <input type="text" name="name"> 
+        <p>Please input the skinfiles </p>
+        <p><input type="file" name="skins" multiple /> </p> 
+        <p>Please input the name of the project </p>
+        <p><input type="text" name="name"> </p> 
+        <p>Please input the model type of skins </p> 
+        <p><select name="model"> 
+            <option value="N">Normal</option> 
+            <option value="G">Girl</option> 
+        </select></p> 
         <input type="submit" value="Submit">
     </form>
   

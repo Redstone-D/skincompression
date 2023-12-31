@@ -37,12 +37,16 @@ def getJson(li):
     })  
 
 def getLang(str, pname): 
-    return f"skinpack.{pname}={pname}\n{str}" 
+    return f"skinpack.{pname}={pname}{str}" 
 
-def skinprop(file): 
+def skinprop(file, model): 
+    m = 'geometry.humanoid.custom' 
+    if model == "G": 
+        m = 'geometry.humanoid.customSlim' 
     return { 
         "localization_name": file.name, 
-        "geometry": testSex(file),
+        # "geometry": testSex(file), 
+        "geometry": m, 
         "texture": file.name, 
         "type": "free" 
     } 
@@ -63,4 +67,4 @@ def testSex(file):
     return 'geometry.humanoid.customSlim'  
 
 def getText(name, proname): 
-    return f"skin.{proname}.{name[:-4]}={name[:-4]} \n" 
+    return f"\nskin.{proname}.{name}={name[:-4]}" 
