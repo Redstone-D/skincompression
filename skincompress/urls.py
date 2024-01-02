@@ -17,7 +17,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
-urlpatterns = [
+urlpatterns = [ 
+    path('', include("v2.urls")), #Default: Newest version 
     path('admin/', admin.site.urls), 
-    path("compress/", include("compress.urls")), 
+    path("v1/", include("compress.urls")), 
+    path("v2/", include("v2.urls")), 
 ]

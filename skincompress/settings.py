@@ -36,6 +36,7 @@ CSRF_TRUSTED_ORIGINS = ['https://yt.pmine.org']
 
 INSTALLED_APPS = [ 
     'compress', 
+    'v2', 
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

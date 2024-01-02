@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'compress/main.css'%}">
+    <style></style>
+</head>
+
+
+<body>
+
+    <div id="cont">
+        <h1>转换 </h1>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %} 
+            <p>Put skin files / zip files / skinpacks to warp them upmodify them.
+                No worry, you will be able to upload other files later on during the modification </p>
+            <input type="file" name="Upload" multiple />
+            <input type="submit" value="Convert"> 
+        </form>
+    </div>
+
+</body>
+
+</html>
