@@ -2,30 +2,58 @@
 <html>
 
 <head>
-</head>
+    {% load static %} 
+    <link rel="stylesheet" href="{% static 'compress/main.css'%}">  
+    <style> 
+        main { 
+            padding: 10%; 
+
+        }  
+
+        .bg {
+            background: url(https://pmine.org/static/pictures/main.png)no-repeat;
+            background-size: cover;
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            z-index: -100;
+        }
+
+    </style>
+</head> 
+
 
 <body>
 
-    <form method="POST" enctype="multipart/form-data"> 
-        {% csrf_token %} 
-        <!---{{ form.as_p }} --> 
-        <p>Please input the skinfiles </p>
-        <p><input type="file" name="skins" multiple /> </p> 
-        <p>Please input the name of the project </p>
-        <p><input type="text" name="name"> </p> 
-        <p>Please input the model type of skins </p> 
-        <p><select name="model"> 
-            <option value="N">Normal</option> 
-            <option value="G">Girl</option> 
-        </select></p> 
-        <input type="submit" value="Submit">
-    </form> 
+    <div class="bg"> </div> 
+    <div id="cont">
+        <h1>转换 </h1>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <!---{{ form.as_p }} -->
+            <p>Please input the skinfiles <input type="file" name="skins" multiple /> </p>
+            <p>Please input the name of the project <input type="text" name="name"> </p>
+            <p>Please input the model type of skins <select name="model">
+                    <option value="N">Normal</option>
+                    <option value="G">Girl</option>
+                </select>
+            </p>
 
-    <p>如果下载文件为 .zip ，请删除 .zip 的后缀（一般在 Safari / Edge 上面出现这个问题） </p> 
-    <p>Contribution </p> 
-    <p>我是redstone </p> 
-    <p>Cinder </p> 
-  
+            <input type="submit" value="Convert">
+        </form>
+
+        <h1>常见问题 </h1>
+        <p>如果下载文件为 .zip ，请删除 .zip 的后缀（一般在 Safari / Edge 上面出现这个问题） </p>
+        <p>如果点击 Submit 之后没有开始自动下载文件，请稍等片刻，之后刷新页面之后重新提交 </p>
+
+        <h1>Contribution </h1>
+        <p>我是redstone </p>
+        <p>Cinder </p>
+        <p>李君子 </p>
+    </div>
+
 </body>
 
 </html>

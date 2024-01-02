@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="pmine.css">
+</head>
+
+<body>
+    <div class='pmine'>. SkinZip TooL
+        <div class='menu'>
+            <tit>菜单</tit>menu<br><br><br>
+            <list>导航</list> list<ul>
+                <li>皮肤转换</li>
+                <li>加入我们</li>
+                <li>赞助PM</li>
+                <li>UImaker: 我连个赞助网址都没写啊(删掉记得</li>
+            </ul><br>
+            <list>作者</list> Maker<ul>
+                <li>我是redstone</li>
+                <li>Cinder</li>
+                <li>Contribution</li>
+            </ul><br>
+            <list>常见问题</list> question<ul>
+                <li>如果下载文件为 .zip ，请删除 .zip 的后缀（一般在 Safari / Edge 上面出现这个问题）</li>
+            </ul>
+        </div>
+    </div><br><br>
+    <div class='info'>
+        <hide>Show .</hide>
+        <div class='showinfo'>
+            <br>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <!---{{ form.as_p }} -->
+                <p>请把文件扔进去 ↓ Upload Your File</p>
+                <p><input type="file" name="skins" multiple /> </p>
+                <p>好好好 你作品没名字是罢 ↓You Name，OKOK you no name ?</p>
+                <p><input type="text" name="name"> </p>
+                <p>你是想做双性人皮肤么 ↓ You skin are XXY? Oh My God</p>
+                <select name="model">
+                    <option value="N">Steve</option>
+                    <option value="G">Alex</option>
+                </select>
+                <input type="submit" value="OK? sir"><br><br>SkinZip Tool version: <py-script>print('version')
+                    </pyscript>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

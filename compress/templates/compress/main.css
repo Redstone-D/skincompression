@@ -1,0 +1,142 @@
+* {
+    text-align: left;
+    font-size: 20px;
+    text-shadow: 2px 2px 5px #000;
+}
+
+.pmine:before {
+    border: 2px solid lightblue;
+    color: lightblue;
+    border-radius: 10%;
+    height: 45px;
+    width: 30px;
+    font-size: 40px;
+    text-shadow: 2px 2px 5px lightblue;
+    box-shadow: 2px 2px 5px lightblue;
+    content: ' + ';
+}
+
+.pmine:hover .menu {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 10;
+    width: 45%;
+    height: 100%;
+    animation: menu 0.5s linear;
+    display: block;
+    background-color: #FFF;
+    box-shadow: 0px 0px 100px #000,0px 0px 10px #000;
+    font-size: 22px;
+    padding: 20px;
+}
+
+.menu list {
+    font-size: 40px;
+}
+
+.menu tit {
+    font-size: 60px;
+    border-bottom: 1px solid #000;
+}
+
+.menu {
+    display: none;
+}
+
+.pmine {
+    border-bottom: 1px solid #000;
+    height: 60px;
+    font-size: 50px;
+    padding: 2px;
+    text-align: left;
+}
+
+.info {
+    border-left: 1px solid #000;
+}
+
+.info hide {
+    background-color: rgba(0,0,0,0.5);
+    width: 100px;
+    font-size: 30px;
+    border-radius: 0px 5px 5px 0px;
+}
+
+hide:active {
+    background-color: rgba(100,100,100,0.5);
+    width: 100px;
+    font-size: 30px;
+    border-radius: 0px 5px 5px 0px;
+}
+
+.info:hover .showinfo {
+    display: block;
+    position: fixed;
+    left: 19px;
+    border-left: 1px solid #000;
+    animation: text 0.5s linear;
+}
+
+.info .showinfo {
+    display: none;
+}
+
+body {
+    background-color: rgb(255,255,255);
+    padding: 10px;
+}
+
+@keyframes text {
+    0% {
+        color: rgba(0,0,0,0);
+        left: -500px;
+    }
+    50% {
+        color: rgba(0,0,0,0);
+        left: 19px;
+    }
+    90% {
+        color: rgba(0,0,0,0.8);
+        left: 30px;
+    }
+    100% {
+        color: rgba(0,0,0,1);
+        left: 19px;
+    }
+}
+
+input {
+    box-shadow: 2px 2px 5px #000;
+    text-shadow: 2px 2px 5px #000;
+}
+
+input:hover {
+    box-shadow: 2px 2px 5px yellow;
+}
+
+select {
+    box-shadow: 2px 2px 5px #000;
+}
+
+select:hover {
+    box-shadow: 2px 2px 5px yellow;
+}
+
+@keyframes menu {
+    0% {
+        width: 0px;
+        height: 0px;
+        color: rgba(0,0,0,0);
+    }
+    50% {
+        width: 30%;
+        height: 70%;
+        color: rgba(0,0,0,0);
+    }
+    100% {
+        width: 45%;
+        height: 100%;
+        color: rgba(0,0,0,1);
+    }
+}
