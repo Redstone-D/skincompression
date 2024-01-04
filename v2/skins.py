@@ -13,8 +13,3 @@ class skin:
     def get_file(self): 
         return self.file 
 
-    def to_dict(self):
-        return {
-            "name": self.name,
-            "file": self.file.name,
-        } 

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html> 
+
+<head> 
+    <script> 
+    document.addEventListener("DOMContentLoaded", load)  
+
+    function load() { 
+        let id = "{{rid}}" 
+        fetch(`/v2/app/${id}`) 
+        .then(response => response.json()) 
+        .then(data => { 
+            data.skins.forEach(render) 
+        }) 
+    } 
+
+    function render(cont) { 
+        const title = document.createElement("div"); 
+        title.className = "title"; 
+        title.innerHTML = `<p>${cont.name}</p>`; 
+
+        const internal = document.createElement("div"); 
+        internal.className = "cont"; 
+        internal.innerHTML = `<p>${cont.name} </p><br><p>${cont.model}</p>`; 
+
+        document.querySelector('#title').append(title); 
+        document.querySelector('#cont').append(internal); 
+    } 
+    </script> 
+</head>
+
+<body> 
+    <div id="title"> 
+
+    </div> 
+    <div id="cont"> 
+
+    </div> 
+    <div id="download"> 
+        <p><a href="/v2/getcompress/{{rid}}">Download </a></p> 
+    </div>"
+</body>
+
+</html>
