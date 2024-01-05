@@ -40,7 +40,6 @@ def app(request, rid):
         skins.append({ 
             "id": skin.id, 
             "name": skin.name, 
-            "model": skin.model 
         }) 
     slm.id = num 
     slm.save() 
@@ -49,12 +48,36 @@ def app(request, rid):
         "id": num 
     }) 
 
-def picture(request, rid, pid): 
-    return FileResponse(models.SkinList.objects.get(id=rid).skin.get(id=pid).file) 
+def getskinprop(request, pid): 
+    skin = models.Skin.objects.get(id=pid) 
+    return JsonResponse({ 
+        "id": skin.id, 
+        "name": skin.name, 
+        "model": skin.model 
+    }) 
+
+def picture(request, pid): 
+    return FileResponse(models.Skin.objects.get(id=pid).file) 
 
 def getcompress(request, rid): 
-    file = fop.topkg(models.SkinList.objects.get(id=num).skin.all()) 
+    file = fop.topkg(models.SkinList.objects.get(id=rid).skin.all()) 
     return FileResponse(file, content_type='application/zip') 
+
+def changeName(request, pid): 
+    if request.method == "POST": 
+        name = request.POST["name"] 
+        ins = models.Skin.objects.get(id=pid) 
+        ins.name = name 
+        ins.save() 
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER')) 
+    
+def changeModel(request, pid): 
+    if request.method == "POST": 
+        model = request.POST["model"] 
+        ins = models.Skin.objects.get(id=pid) 
+        ins.model = model 
+        ins.save() 
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER')) 
 
 def regenerate(): 
     try: 
@@ -72,4 +95,4 @@ def cleardb():
         for skin in skinlist.skin.all ():
             if skin.cont.count () == 1: 
                 skin.delete () 
-    skinlists.delete ()
+    skinlists.delete () 

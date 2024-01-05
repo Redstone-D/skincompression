@@ -1,44 +1,68 @@
 <!DOCTYPE html>
-<html> 
+<html>
 
-<head> 
-    <script> 
-    document.addEventListener("DOMContentLoaded", load)  
+<head>
+    <script>
+        document.addEventListener("DOMContentLoaded", load)
 
-    function load() { 
-        let id = "{{rid}}" 
-        fetch(`/v2/app/${id}`) 
-        .then(response => response.json()) 
-        .then(data => { 
-            data.skins.forEach(render) 
-        }) 
-    } 
+        function load() {
+            let id = "{{rid}}"
+            fetch(`/v2/app/${id}`)
+                .then(response => response.json())
+                .then(data => {
+                    data.skins.forEach(render)
+                })
+        }
 
-    function render(cont) { 
-        const title = document.createElement("div"); 
-        title.className = "title"; 
-        title.innerHTML = `<p>${cont.name}</p>`; 
+        document.addEventListener("click", function (event) {
+            inner(event.target);
+        }); 
 
-        const internal = document.createElement("div"); 
-        internal.className = "cont"; 
-        internal.innerHTML = `<p>${cont.name} </p><br><p>${cont.model}</p>`; 
+        function render(cont) {
+            const title = document.createElement("div");
+            title.className = "title";
+            title.innerHTML = `<button data-id=${cont.id}>${cont.name}</p>`;
 
-        document.querySelector('#title').append(title); 
-        document.querySelector('#cont').append(internal); 
-    } 
-    </script> 
+            const internal = document.createElement("div");
+            internal.className = "cont";
+            internal.innerHTML = `<p>${cont.name} </p><p>${cont.model}</p>`;
+
+            document.querySelector('#title').append(title);
+        }
+
+        function inner(button) {
+
+            const internal = document.createElement("div");
+            fetch(`/v2/app/getprop/${button.dataset.id}`)
+                .then(response => response.json())
+                .then(data => { 
+                    console.log(data); 
+                    changenameurl = `${button.dataset.id}/changename`; 
+                    changemodelurl = `${button.dataset.id}/changemodel`;  
+                    internal.innerHTML = "" 
+                    let con = `<p>${data.name} </p><p>${data.model}</p><p><img src="/v2/picture/${data.id}"></p>`;
+                    con = con + `<form action="${changenameurl}" method="post"> {%csrf_token%} <input type="text" name="name"> <input type="submit"> </form>`; 
+                    con = con + `<form action="${changemodelurl}" method="post"> {%csrf_token%} <input type="text" name="model"> <input type="submit"> </form>`; 
+                    console.log(con); 
+                    document.querySelector('#cont').innerHTML = con; 
+
+                }) 
+        }
+
+    </script>
 </head>
 
-<body> 
-    <div id="title"> 
+<body>
+    <div id="title">
 
-    </div> 
-    <div id="cont"> 
+    </div>
+    <div id="cont">
 
-    </div> 
-    <div id="download"> 
-        <p><a href="/v2/getcompress/{{rid}}">Download </a></p> 
-    </div>"
+    </div>
+    <div id="download">
+        <p><a href="/v2/getcompress/{{rid}}">Download </a></p>
+    </div>
 </body>
+
 
 </html>
