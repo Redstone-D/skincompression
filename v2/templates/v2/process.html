@@ -39,10 +39,12 @@
                     console.log(data); 
                     changenameurl = `${button.dataset.id}/changename`; 
                     changemodelurl = `${button.dataset.id}/changemodel`;  
+                    deleteskin = `${button.dataset.id}/deleteskin`;  
                     internal.innerHTML = "" 
                     let con = `<p>${data.name} </p><p>${data.model}</p><p><img src="/v2/picture/${data.id}"></p>`;
-                    con = con + `<form action="${changenameurl}" method="post"> {%csrf_token%} <input type="text" name="name"> <input type="submit"> </form>`; 
-                    con = con + `<form action="${changemodelurl}" method="post"> {%csrf_token%} <input type="text" name="model"> <input type="submit"> </form>`; 
+                    con = con + `<form action="${changenameurl}" method="post"> {%csrf_token%} Skin Name: <input type="text" name="name"> <input type="submit"> </form>`; 
+                    con = con + `<form action="${changemodelurl}" method="post"> {%csrf_token%} Skin Model: <input type="text" name="model"> <input type="submit"> </form>`; 
+                    con = con + `<form action="${deleteskin}" method="post"> Delete {%csrf_token%} <input type="submit"> </form>`; 
                     console.log(con); 
                     document.querySelector('#cont').innerHTML = con; 
 
@@ -52,16 +54,27 @@
     </script>
 </head>
 
-<body>
-    <div id="title">
+<body> 
+    <table> 
+        <tr> 
+            <td> 
+                <div id="title">
 
-    </div>
-    <div id="cont">
+                </div> 
+            </td>  
+            <td> 
+                <div id="cont">
 
-    </div>
-    <div id="download">
-        <p><a href="/v2/getcompress/{{rid}}">Download </a></p>
-    </div>
+                </div> 
+                <div id="b"> 
+                    <p><a href="/v2/getcompress/{{rid}}">Download </a> <a href="/v2/app/add/{{rid}}">Add </a></p> 
+                </div>
+            </td>  
+        </tr> 
+    </table>
+
+
+
 </body>
 
 

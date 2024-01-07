@@ -1,5 +1,7 @@
-from datetime import timedelta, timezone
-import json
+from django.utils import timezone 
+from datetime import timedelta 
+import json 
+import uuid 
 import random
 from django.http import FileResponse, HttpResponseRedirect, JsonResponse 
 from django.shortcuts import render
@@ -15,6 +17,7 @@ add = 0
 def index(request): 
     num = regenerate() 
     if (request.method == "POST"): 
+        name = request.POST["name"] 
         file_list = request.FILES.getlist("Upload") 
         skin_list = fop.start(file_list) 
         try: 
@@ -22,9 +25,21 @@ def index(request):
         except: 
             slm = models.SkinList.objects.create(id=num) 
         slm.skin.set(skin_list) 
+        slm.name = name 
         slm.save() 
         return HttpResponseRedirect(reverse("process", args=(num,))) 
     return render(request, "v2/index.html") 
+
+def add(request, rid): 
+    if (request.method == "POST"): 
+        file_list = request.FILES.getlist("Upload") 
+        skin_list = fop.start(file_list) 
+        sl = models.SkinList.objects.get(id=rid) 
+        slm = list(models.SkinList.objects.get(id=rid).skin.all()) 
+        sl.skin.set(slm + skin_list) 
+        sl.save() 
+        return HttpResponseRedirect(reverse("process", args=(rid,))) 
+    return render(request, "v2/add.html") 
 
 def process(request, rid): 
     return render(request, f"v2/process.html", { 
@@ -32,7 +47,6 @@ def process(request, rid):
     }) 
 
 def app(request, rid): 
-    num = regenerate() 
     slm = models.SkinList.objects.get(id=rid) 
     skin_list = slm.skin.all() 
     skins = [] 
@@ -41,27 +55,11 @@ def app(request, rid):
             "id": skin.id, 
             "name": skin.name, 
         }) 
-    slm.id = num 
     slm.save() 
     return JsonResponse({ 
         "skins": skins, 
-        "id": num 
-    }) 
-
-def getskinprop(request, pid): 
-    skin = models.Skin.objects.get(id=pid) 
-    return JsonResponse({ 
-        "id": skin.id, 
-        "name": skin.name, 
-        "model": skin.model 
-    }) 
-
-def picture(request, pid): 
-    return FileResponse(models.Skin.objects.get(id=pid).file) 
-
-def getcompress(request, rid): 
-    file = fop.topkg(models.SkinList.objects.get(id=rid).skin.all()) 
-    return FileResponse(file, content_type='application/zip') 
+        "id": rid 
+    })  
 
 def changeName(request, pid): 
     if request.method == "POST": 
@@ -79,20 +77,36 @@ def changeModel(request, pid):
         ins.save() 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER')) 
 
+def getskinprop(request, pid): 
+    skin = models.Skin.objects.get(id=pid) 
+    return JsonResponse({ 
+        "id": skin.id, 
+        "name": skin.name, 
+        "model": skin.model 
+    }) 
+
+def picture(request, pid): 
+    return FileResponse(models.Skin.objects.get(id=pid).file) 
+
+def getcompress(request, rid):  
+    return fop.getFile(rid)  
+
+
+def deleteskin(request, pid): 
+    if request.method == "POST": 
+        models.Skin.objects.delete(id=pid) 
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER')) 
+
 def regenerate(): 
     try: 
         add = add + 1 
     except: 
         add = 0 
-    if (add > 100): 
+    if True: 
         cleardb() 
     return random.randint(1, 100000) 
 
 def cleardb(): 
     #Clear the database 
-    skinlists = models.SkinList.objects.filter (created_at__lt=timezone.now () - timedelta (minutes=20))
-    for skinlist in skinlists:
-        for skin in skinlist.skin.all ():
-            if skin.cont.count () == 1: 
-                skin.delete () 
-    skinlists.delete () 
+    skinlists = models.SkinList.objects.exclude (created_at__lt=timezone.now () - timedelta (minutes=1)) 
+    print(skinlists) 
