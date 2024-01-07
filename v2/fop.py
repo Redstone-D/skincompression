@@ -64,7 +64,7 @@ def getFile(rid):
             file_name = skin.file.name[9:] 
             zip_file.writestr(file_name, skin.file.read()) 
             print(file_name) 
-            s.append(skinprop(skin.file, skin.model)) 
+            s.append(skinprop(file_name, skin.model)) 
             tran += getText(file_name, skin.name, skinlist.name) 
         # Create a ContentFile object from the text input 
         text_file = ContentFile(getManText(skinlist.name)) 
@@ -119,13 +119,13 @@ def getJson(li, pname):
 def getLang(str, pname): 
     return f"skinpack.{pname}={pname}{str}" 
 
-def skinprop(file, model): 
+def skinprop(file_name, model): 
     return { 
-        "localization_name": file.name, 
+        "localization_name": file_name, 
         "geometry": model, 
-        "texture": file.name, 
+        "texture": file_name, 
         "type": "free" 
     } 
 
 def getText(fname, name, proname): 
-    return f"\nskin.{proname}.{fname}={name}" 
+    return f"\nskin.{proname}.{fname[:-4]}={name}" 
