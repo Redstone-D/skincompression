@@ -128,4 +128,4 @@ def skinprop(file_name, model):
     } 
 
 def getText(fname, name, proname): 
-    return f"\nskin.{proname}.{fname[:-4]}={name}" 
+    return f"\nskin.{proname}.{fname}={name}" 
