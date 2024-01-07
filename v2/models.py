@@ -31,3 +31,6 @@ class SkinList (models.Model):
     skin = models.ManyToManyField(Skin, blank=True, related_name="cont") 
     created_at = models.DateTimeField(auto_now=True) 
     name = models.CharField(max_length=30, default="skinpack") 
+
+    def __str__(self): 
+        return str(self.created_at) 

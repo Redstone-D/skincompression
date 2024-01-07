@@ -108,5 +108,11 @@ def regenerate():
 
 def cleardb(): 
     #Clear the database 
-    skinlists = models.SkinList.objects.exclude (created_at__lt=timezone.now () - timedelta (minutes=1)) 
+    skinlists = models.SkinList.objects.filter (created_at__lt=timezone.now () - timedelta (minutes=100)) 
     print(skinlists) 
+    for sl in skinlists: 
+        sl.delete() 
+    skins = models.Skin.objects.filter(cont__isnull=True) 
+    print(skins) 
+    for s in skins: 
+        s.delete() 
