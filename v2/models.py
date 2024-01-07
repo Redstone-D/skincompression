@@ -17,7 +17,7 @@ def hashname(ori_name):
     return hashlib.md5(ori_name[:-4].encode("UTF-8")).hexdigest() + ".png" 
 
 class Skin (models.Model): 
-    file = models.ImageField(upload_to=os.path.join(BASE_DIR, 'v2', 'skins')) 
+    file = models.ImageField(max_length=200, upload_to='v2/skins/') 
     model = models.CharField(max_length=30, default="geometry.humanoid.customSlim")
     name = models.CharField(max_length=30) 
 
