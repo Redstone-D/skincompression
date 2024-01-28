@@ -1,85 +1,59 @@
-<!DOCTYPE html>
-<html>
+{%extends "v2/template.html"%}
 
-<head>
-    <style>
-        button .select {
-            width: 200px;
-            height: 50px;
-            font-size: 20px;
-            font-weight: bold;
-            border: 5px solid white;
-            background-color: #ffa000;
-            color: black;
-            text-decoration-line: underline;
-        }
+{%block body%}
 
-        button:hover .select {
-            background-color: white;
-            border: 5px solid black;
-            color: #ffa000;
-            font-weight: bold;
-        }
+<script>
+    document.addEventListener("DOMContentLoaded", load)
 
-        button .select {
-            text-align: center;
-            padding-top: 5px;
-            padding-bottom: 5px;
-        } 
-    </style>
-    <script>
-        document.addEventListener("DOMContentLoaded", load)
+    function load() {
+        let id = "{{rid}}"
+        fetch(`/v2/app/${id}`)
+            .then(response => response.json())
+            .then(data => {
+                data.skins.forEach(render)
+            })
+    }
 
-        function load() {
-            let id = "{{rid}}"
-            fetch(`/v2/app/${id}`)
-                .then(response => response.json())
-                .then(data => {
-                    data.skins.forEach(render)
-                })
-        }
+    document.addEventListener("click", function (event) {
+        inner(event.target);
+    });
 
-        document.addEventListener("click", function (event) {
-            inner(event.target);
-        });
+    function render(cont) {
+        const title = document.createElement("div");
+        title.className = "title";
+        title.innerHTML = `<p><button data-id=${cont.id} class=select>${cont.name}</button></p>`;
 
-        function render(cont) {
-            const title = document.createElement("div");
-            title.className = "title";
-            title.innerHTML = `<p><button data-id=${cont.id} class=select>${cont.name}</button></p>`;
+        const internal = document.createElement("div");
+        internal.className = "cont";
+        internal.innerHTML = `<p>${cont.name} </p><p>${cont.model}</p>`;
 
-            const internal = document.createElement("div");
-            internal.className = "cont";
-            internal.innerHTML = `<p>${cont.name} </p><p>${cont.model}</p>`;
+        document.querySelector('#title').append(title);
+    }
 
-            document.querySelector('#title').append(title);
-        }
+    function inner(button) {
 
-        function inner(button) {
+        const internal = document.createElement("div");
+        fetch(`/v2/app/getprop/${button.dataset.id}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                changenameurl = `${button.dataset.id}/changename`;
+                changemodelurl = `${button.dataset.id}/changemodel`;
+                deleteskin = `${button.dataset.id}/deleteskin`;
+                internal.innerHTML = ""
+                let con = `<p>${data.name} </p><p>${data.model}</p><p><img src="/v2/picture/${data.id}"></p>`;
+                con = con + `<form action="${changenameurl}" method="post"> {%csrf_token%} Skin Name: <input type="text" name="name"> <input type="submit"> </form>`;
+                con = con + `<form action="${changemodelurl}" method="post"> {%csrf_token%} Skin Model: <input type="text" name="model"> <input type="submit"> </form>`;
+                con = con + `<form action="${deleteskin}" method="post"> Delete {%csrf_token%} <input type="submit"> </form>`;
+                console.log(con);
+                document.querySelector('#cont').innerHTML = con;
 
-            const internal = document.createElement("div");
-            fetch(`/v2/app/getprop/${button.dataset.id}`)
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data);
-                    changenameurl = `${button.dataset.id}/changename`;
-                    changemodelurl = `${button.dataset.id}/changemodel`;
-                    deleteskin = `${button.dataset.id}/deleteskin`;
-                    internal.innerHTML = ""
-                    let con = `<p>${data.name} </p><p>${data.model}</p><p><img src="/v2/picture/${data.id}"></p>`;
-                    con = con + `<form action="${changenameurl}" method="post"> {%csrf_token%} Skin Name: <input type="text" name="name"> <input type="submit"> </form>`;
-                    con = con + `<form action="${changemodelurl}" method="post"> {%csrf_token%} Skin Model: <input type="text" name="model"> <input type="submit"> </form>`;
-                    con = con + `<form action="${deleteskin}" method="post"> Delete {%csrf_token%} <input type="submit"> </form>`;
-                    console.log(con);
-                    document.querySelector('#cont').innerHTML = con;
+            })
+    }
 
-                })
-        }
+</script>
 
-    </script>
-</head>
-
-<body>
+<div class="box">
     <table>
         <tr>
             <td>
@@ -97,10 +71,6 @@
             </td>
         </tr>
     </table>
+</div>
 
-
-
-</body>
-
-
-</html>
+{%endblock%}

@@ -1,25 +1,16 @@
-<!DOCTYPE html>
-<html>
+{%extends "v2/template.html"%}
 
-<head>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'compress/main.css'%}">
-    <style></style>
-</head>
+{%block body%}
 
+<div class="box">
+    <h1>转换 </h1> 
+    <hr> 
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <p>Put skin files / zip files / skinpacks to warp them upmodify them. </p>
+        <input type="file" name="Upload" multiple />
+        <input type="submit" value="Convert">
+    </form>
+</div>
 
-<body>
-
-    <div id="cont">
-        <h1>转换 </h1>
-        <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %} 
-            <p>Put skin files / zip files / skinpacks to warp them upmodify them. </p> 
-            <input type="file" name="Upload" multiple />
-            <input type="submit" value="Convert"> 
-        </form>
-    </div>
-
-</body> 
-
-</html>
+{%endblock%}

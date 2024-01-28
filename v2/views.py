@@ -27,9 +27,7 @@ def index(request):
         slm.skin.set(skin_list) 
         slm.name = name 
         slm.save() 
-        return JsonResponse({
-            "rid": num 
-        }) 
+        return HttpResponseRedirect(reverse("process", args=(num,))) 
     return render(request, "v2/index.html") 
 
 def add(request, rid): 
@@ -40,14 +38,11 @@ def add(request, rid):
         slm = list(models.SkinList.objects.get(id=rid).skin.all()) 
         sl.skin.set(slm + skin_list) 
         sl.save() 
-        return JsonResponse({ 
-            "rid": rid, 
-            "pid": sl.id 
-        }) 
+        return HttpResponseRedirect(reverse("process", args=(rid,))) 
     return render(request, "v2/add.html") 
 
 def process(request, rid): 
-    return JsonResponse({ 
+    return render(request, f"v2/process.html", { 
         "rid": rid 
     }) 
 
@@ -72,9 +67,7 @@ def changeName(request, pid):
         ins = models.Skin.objects.get(id=pid) 
         ins.name = name 
         ins.save() 
-    return JsonResponse({
-        "status": 0 
-    }) 
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER')) 
     
 def changeModel(request, pid): 
     if request.method == "POST": 
@@ -82,9 +75,7 @@ def changeModel(request, pid):
         ins = models.Skin.objects.get(id=pid) 
         ins.model = model 
         ins.save() 
-    return JsonResponse({
-        "status": 0 
-    }) 
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER')) 
 
 def getskinprop(request, pid): 
     skin = models.Skin.objects.get(id=pid) 
@@ -104,7 +95,7 @@ def getcompress(request, rid):
 def deleteskin(request, pid): 
     if request.method == "POST": 
         models.Skin.objects.delete(id=pid) 
-    return 1 
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER')) 
 
 def regenerate(): 
     try: 

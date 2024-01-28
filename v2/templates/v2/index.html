@@ -1,27 +1,18 @@
-<!DOCTYPE html>
-<html>
+{%extends "v2/template.html"%}
 
-<head>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'compress/main.css'%}">
-    <style></style>
-</head>
+{%block body%}
 
-
-<body>
-
-    <div id="cont">
-        <h1>转换 </h1>
-        <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %} 
-            <p>Put skin files / zip files / skinpacks to warp them upmodify them.
-                No worry, you will be able to upload other files later on during the modification </p>
-            <input type="file" name="Upload" multiple /> 
-            <input type="text" name="name"> 
-            <input type="submit" value="Convert"> 
-        </form> 
-    </div>
-
-</body> 
-
-</html> 
+<div class="box">
+    <h1>转换 </h1>
+    <hr>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <p>Put skin files / zip files / skinpacks to warp them upmodify them.
+            No worry, you will be able to upload other files later on during the modification </p>
+        <br>
+        请放入皮肤文件 <input type="file" name="Upload" multiple /> <br>
+        请输入皮肤包名称 <input type="text" name="name" text="Default Skin Pack"> <br> 
+        <input type="submit" value="Convert">
+    </form>
+</div>
+{%endblock%}
