@@ -94,7 +94,7 @@ def getcompress(request, rid):
 
 def deleteskin(request, pid): 
     if request.method == "POST": 
-        models.Skin.objects.delete(id=pid) 
+        models.Skin.objects.filter(id=pid).delete() 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER')) 
 
 def regenerate(): 

@@ -26,11 +26,11 @@ SECRET_KEY = 'django-insecure-u9y0x4r(py=3duyq-sye@5jic(ah!ep_a*-jlhn1yukmszmbus
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    '*', 
+ALLOWED_HOSTS = [ 
+    '*' 
     ] 
     
-CSRF_TRUSTED_ORIGINS = ['https://yt.pmine.org'] 
+CSRF_TRUSTED_ORIGINS = ['https://yt.pmine.org', 'https://skin.pmine.org'] 
 
 
 # Application definition

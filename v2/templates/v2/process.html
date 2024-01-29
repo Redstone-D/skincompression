@@ -1,6 +1,15 @@
 {%extends "v2/template.html"%}
 
-{%block body%}
+{%block body%} 
+
+<style> 
+input { 
+    font-size: 15px; 
+} 
+select { 
+    font-size: 15px; 
+}
+</style>
 
 <script>
     document.addEventListener("DOMContentLoaded", load)
@@ -21,7 +30,7 @@
     function render(cont) {
         const title = document.createElement("div");
         title.className = "title";
-        title.innerHTML = `<p><button data-id=${cont.id} class=select>${cont.name}</button></p>`;
+        title.innerHTML = `<p><button data-id=${cont.id} class=select style="width:100%; font-size:20px">${cont.name}</button></p>`;
 
         const internal = document.createElement("div");
         internal.className = "cont";
@@ -41,10 +50,11 @@
                 changemodelurl = `${button.dataset.id}/changemodel`;
                 deleteskin = `${button.dataset.id}/deleteskin`;
                 internal.innerHTML = ""
-                let con = `<p>${data.name} </p><p>${data.model}</p><p><img src="/v2/picture/${data.id}"></p>`;
-                con = con + `<form action="${changenameurl}" method="post"> {%csrf_token%} Skin Name: <input type="text" name="name"> <input type="submit"> </form>`;
-                con = con + `<form action="${changemodelurl}" method="post"> {%csrf_token%} Skin Model: <input type="text" name="model"> <input type="submit"> </form>`;
-                con = con + `<form action="${deleteskin}" method="post"> Delete {%csrf_token%} <input type="submit"> </form>`;
+                let con = `<p style="font-size:30px"><b>${data.name} </b></p><p>模型：${data.model}</p><p><img src="/v2/picture/${data.id}" width="80%"></p>`;
+                con = con + `<br>` 
+                con = con + `<form action="${changenameurl}" method="post" style="font-size:20px"> {%csrf_token%} Skin Name: <input type="text" name="name"> <input type="submit"> </form>`;
+                con = con + `<form action="${changemodelurl}" method="post" style="font-size:20px"> {%csrf_token%} Skin Model: <select name="model" id="model"><option value="geometry.humanoid.custom">男性皮肤</option><option value="geometry.humanoid.customSlim">女性皮肤</option></select><input type="submit"> </form>`;
+                con = con + `<form action="${deleteskin}" method="post" style="font-size:20px">{%csrf_token%} <input type="submit" value="删除此文件"> </form>`; 
                 console.log(con);
                 document.querySelector('#cont').innerHTML = con;
 
@@ -54,23 +64,25 @@
 </script>
 
 <div class="box">
-    <table>
+    <table style="width:90%">
         <tr>
-            <td>
+            <td style="width:30%;vertical-align: text-top;"> 
+                <h1>文件</h1> 
                 <div id="title">
-
-                </div>
-            </td>
-            <td>
+                    
+                </div> 
+                <br> 
+                <h1>文件操作</h1> 
+                <div id="b"> 
+                    <p><a href="/v2/getcompress/{{rid}}"><button style="width:100%; font-size:20px">下载皮肤包 </button></a> <a href="/v2/app/add/{{rid}}"><button style="width:100%; font-size:20px">添加皮肤 </button></a></p>
+                </div> 
+            </td> 
+            <td style="width:70%">
                 <div id="cont">
 
                 </div>
-                <div id="b">
-                    <p><a href="/v2/getcompress/{{rid}}">Download </a> <a href="/v2/app/add/{{rid}}">Add </a></p>
-                </div>
             </td>
         </tr>
-    </table>
-</div>
-
+    </table> 
+</div> 
 {%endblock%}
