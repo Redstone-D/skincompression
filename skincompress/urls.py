@@ -18,8 +18,9 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [ 
-    path('', include("v2.urls")), #Default: Newest version 
+    path('', include("v3.urls")), #Default: Newest version 
     path('admin/', admin.site.urls), 
     path("v1/", include("compress.urls")), 
     path("v2/", include("v2.urls")), 
+    path("v3/", include("v3.urls")), 
 ]

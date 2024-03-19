@@ -30,25 +30,28 @@ ALLOWED_HOSTS = [
     '*' 
     ] 
     
-CSRF_TRUSTED_ORIGINS = ['https://yt.pmine.org', 'https://skin.pmine.org'] 
+CSRF_TRUSTED_ORIGINS = ['https://pmine.org']  
 
-
-# Application definition
+# Application definition 
 
 INSTALLED_APPS = [ 
     'compress', 
     'v2', 
+    'v3', 
+    'corsheaders', # Cors 
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
+    'django.contrib.staticfiles', 
+    'django_cleanup.apps.CleanupConfig', 
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware', # Cors 
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -128,3 +131,16 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken' 
+]

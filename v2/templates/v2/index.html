@@ -7,11 +7,11 @@
     <hr>
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        <p>请放入皮肤文件开始打包。在打包的过程中您可以添加更多的皮肤文件 </p>
+        <p style="font-size: 20px">请放入皮肤文件开始打包。在打包的过程中您可以添加更多的皮肤文件 </p>
         <br>
-        请放入皮肤文件 <input type="file" name="Upload" multiple /> <br>
-        请输入皮肤包名称 <input type="text" name="name" text="Default Skin Pack"> <br>
+        <p style="font-size: 20px">请放入皮肤文件 </p><input type="file" style="font-size: 20px" name="Upload" multiple /> <br>
+        <p style="font-size: 20px">请输入皮肤包名称 </p><input type="text" name="name" style="font-size: 20px" text="Default Skin Pack"> <br>
         <input type="submit" value="Convert">
     </form>
 </div>
-{%endblock%} 
+{%endblock%}  
